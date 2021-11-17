@@ -16,7 +16,6 @@ keypoints:
 - "`rm [path]` removes (deletes) a file."
 - "`*` matches zero or more characters in a filename, so `*.txt` matches all files ending in `.txt`."
 - "`?` matches any single character in a filename, so `?.txt` matches `a.txt` but not `any.txt`."
-- "Use of the Control key may be described in many ways, including `Ctrl-X`, `Control-X`, and `^X`."
 - "The shell does not have a trash bin: once something is deleted, it's really gone."
 - "Most files' names are `something.extension`. The extension isn't required, and doesn't guarantee anything, but is normally used to indicate the type of data in the file."
 - "Depending on the type of work you do, you may need a more powerful text editor than Nano."
@@ -92,25 +91,6 @@ $ mkdir -p project/data project/results
 ~~~
 {: .language-bash}
 
-The `-R` option to the `ls` command will list all nested subdirectories within a directory.
-Let's use `ls -FR` to recursively list the new directory hierarchy we just created in the
-`project` directory:
-
-~~~
-$ ls -FR project
-~~~
-{: .language-bash}
-
-~~~
-project/:
-data/  results/
-
-project/data:
-
-project/results:
-~~~
-{: .output}
-
 > ## Two ways of doing the same thing
 > Using the shell to create a directory is no different than using a file explorer.
 > If you open the current directory using your operating system's graphical file explorer,
@@ -140,10 +120,6 @@ project/results:
 >
 > 3. Stick with letters, numbers, `.` (period or 'full stop'), `-` (dash) and `_` (underscore).
 >
->    Many other characters have special meanings on the command line.
->    We will learn about some of these during this lesson.
->    There are special characters that can cause your command to not work as
->    expected and can even result in data loss.
 >
 > If you need to refer to names of files or directories that have spaces
 > or other special characters, you should surround the name in quotes (`""`).
@@ -195,25 +171,6 @@ src="../fig/nano-screenshot.png"></div>
 
 Once our file is saved, we can use <kbd>Ctrl</kbd>+<kbd>X</kbd> to quit the editor and
 return to the shell.
-
-> ## Control, Ctrl, or ^ Key
->
-> The Control key is also called the 'Ctrl' key. There are various ways
-> in which using the Control key may be described. For example, you may
-> see an instruction to press the <kbd>Control</kbd> key and, while holding it down,
-> press the <kbd>X</kbd> key, described as any of:
->
-> * `Control-X`
-> * `Control+X`
-> * `Ctrl-X`
-> * `Ctrl+X`
-> * `^X`
-> * `C-x`
->
-> In nano, along the bottom of the screen you'll see `^G Get Help ^O WriteOut`.
-> This means that you can use `Control-G` to get help and `Control-O` to save your
-> file.
-{: .callout}
 
 `nano` doesn't leave any output on the screen after it exits,
 but `ls` now shows that we have created a file called `draft.txt`:
@@ -463,84 +420,6 @@ quotations.txt
 ```
 {: .output}
 
-
-> ## Renaming Files
->
-> Suppose that you created a plain-text file in your current directory to contain a list of the
-> statistical tests you will need to do to analyze your data, and named it: `statstics.txt`
->
-> After creating and saving this file you realize you misspelled the filename! You want to
-> correct the mistake, which of the following commands could you use to do so?
->
-> 1. `cp statstics.txt statistics.txt`
-> 2. `mv statstics.txt statistics.txt`
-> 3. `mv statstics.txt .`
-> 4. `cp statstics.txt .`
->
-> > ## Solution
-> > 1. No.  While this would create a file with the correct name,
-> > the incorrectly named file still exists in the directory
-> > and would need to be deleted.
-> > 2. Yes, this would work to rename the file.
-> > 3. No, the period(.) indicates where to move the file, but does not provide a new file name;
-> > identical file names
-> > cannot be created.
-> > 4. No, the period(.) indicates where to copy the file, but does not provide a new file name;
-> > identical file names cannot be created.
-> {: .solution}
-{: .challenge}
-
-> ## Moving and Copying
->
-> What is the output of the closing `ls` command in the sequence shown below?
->
-> ~~~
-> $ pwd
-> ~~~
-> {: .language-bash}
-> ~~~
-> /Users/jamie/data
-> ~~~
-> {: .output}
-> ~~~
-> $ ls
-> ~~~
-> {: .language-bash}
-> ~~~
-> proteins.dat
-> ~~~
-> {: .output}
-> ~~~
-> $ mkdir recombined
-> $ mv proteins.dat recombined/
-> $ cp recombined/proteins.dat ../proteins-saved.dat
-> $ ls
-> ~~~
-> {: .language-bash}
->
->
-> 1.   `proteins-saved.dat recombined`
-> 2.   `recombined`
-> 3.   `proteins.dat recombined`
-> 4.   `proteins-saved.dat`
->
-> > ## Solution
-> > We start in the `/Users/jamie/data` directory, and create a new folder called `recombined`.
-> > The second line moves (`mv`) the file `proteins.dat` to the new folder (`recombined`).
-> > The third line makes a copy of the file we just moved.
-> > The tricky part here is where the file was copied to.
-> > Recall that `..` means 'go up a level', so the copied file is now in `/Users/jamie`.
-> > Notice that `..` is interpreted with respect to the current working
-> > directory, **not** with respect to the location of the file being copied.
-> > So, the only thing that will show using ls (in `/Users/jamie/data`) is the recombined folder.
-> >
-> > 1. No, see explanation above.  `proteins-saved.dat` is located at `/Users/jamie`
-> > 2. Yes
-> > 3. No, see explanation above.  `proteins.dat` is located at `/Users/jamie/data/recombined`
-> > 4. No, see explanation above.  `proteins-saved.dat` is located at `/Users/jamie`
-> {: .solution}
-{: .challenge}
-
 ## Removing files and directories
 
 Returning to the `shell-lesson-data` directory,
@@ -694,13 +573,7 @@ or specifying a naming pattern using wildcards.
 > list of matching filenames *before* running the command that was
 > asked for. As an exception, if a wildcard expression does not match
 > any file, Bash will pass the expression as an argument to the command
-> as it is. For example, typing `ls *.pdf` in the `molecules` directory
-> (which contains only files with names ending with `.pdb`) results in
-> an error message that there is no file called `*.pdf`.
-> However, generally commands like `wc` and `ls` see the lists of
-> file names matching these expressions, but not the wildcards
-> themselves. It is the shell, not the other programs, that deals with
-> expanding wildcards.
+> as it is.
 {: .callout}
 
 > ## List filenames matching a pattern
@@ -733,104 +606,6 @@ or specifying a naming pattern using wildcards.
 >> This is the solution.
 >>
 >> `4.` only shows files starting with `ethane.`.
-> {: .solution}
-{: .challenge}
-
-> ## More on Wildcards
->
-> Sam has a directory containing calibration data, datasets, and descriptions of
-> the datasets:
->
-> ~~~
-> .
-> ├── 2015-10-23-calibration.txt
-> ├── 2015-10-23-dataset1.txt
-> ├── 2015-10-23-dataset2.txt
-> ├── 2015-10-23-dataset_overview.txt
-> ├── 2015-10-26-calibration.txt
-> ├── 2015-10-26-dataset1.txt
-> ├── 2015-10-26-dataset2.txt
-> ├── 2015-10-26-dataset_overview.txt
-> ├── 2015-11-23-calibration.txt
-> ├── 2015-11-23-dataset1.txt
-> ├── 2015-11-23-dataset2.txt
-> ├── 2015-11-23-dataset_overview.txt
-> ├── backup
-> │   ├── calibration
-> │   └── datasets
-> └── send_to_bob
->     ├── all_datasets_created_on_a_23rd
->     └── all_november_files
-> ~~~
-> {: .language-bash}
->
-> Before heading off to another field trip, she wants to back up her data and
-> send some datasets to her colleague Bob. Sam uses the following commands
-> to get the job done:
->
-> ~~~
-> $ cp *dataset* backup/datasets
-> $ cp ____calibration____ backup/calibration
-> $ cp 2015-____-____ send_to_bob/all_november_files/
-> $ cp ____ send_to_bob/all_datasets_created_on_a_23rd/
-> ~~~
-> {: .language-bash}
->
-> Help Sam by filling in the blanks.
->
-> The resulting directory structure should look like this
-> ```
-> .
-> ├── 2015-10-23-calibration.txt
-> ├── 2015-10-23-dataset1.txt
-> ├── 2015-10-23-dataset2.txt
-> ├── 2015-10-23-dataset_overview.txt
-> ├── 2015-10-26-calibration.txt
-> ├── 2015-10-26-dataset1.txt
-> ├── 2015-10-26-dataset2.txt
-> ├── 2015-10-26-dataset_overview.txt
-> ├── 2015-11-23-calibration.txt
-> ├── 2015-11-23-dataset1.txt
-> ├── 2015-11-23-dataset2.txt
-> ├── 2015-11-23-dataset_overview.txt
-> ├── backup
-> │   ├── calibration
-> │   │   ├── 2015-10-23-calibration.txt
-> │   │   ├── 2015-10-26-calibration.txt
-> │   │   └── 2015-11-23-calibration.txt
-> │   └── datasets
-> │       ├── 2015-10-23-dataset1.txt
-> │       ├── 2015-10-23-dataset2.txt
-> │       ├── 2015-10-23-dataset_overview.txt
-> │       ├── 2015-10-26-dataset1.txt
-> │       ├── 2015-10-26-dataset2.txt
-> │       ├── 2015-10-26-dataset_overview.txt
-> │       ├── 2015-11-23-dataset1.txt
-> │       ├── 2015-11-23-dataset2.txt
-> │       └── 2015-11-23-dataset_overview.txt
-> └── send_to_bob
->     ├── all_datasets_created_on_a_23rd
->     │   ├── 2015-10-23-dataset1.txt
->     │   ├── 2015-10-23-dataset2.txt
->     │   ├── 2015-10-23-dataset_overview.txt
->     │   ├── 2015-11-23-dataset1.txt
->     │   ├── 2015-11-23-dataset2.txt
->     │   └── 2015-11-23-dataset_overview.txt
->     └── all_november_files
->         ├── 2015-11-23-calibration.txt
->         ├── 2015-11-23-dataset1.txt
->         ├── 2015-11-23-dataset2.txt
->         └── 2015-11-23-dataset_overview.txt
-> ```
-> {: .language-bash}
->
-> > ## Solution
-> > ```
-> > $ cp *calibration.txt backup/calibration
-> > $ cp 2015-11-* send_to_bob/all_november_files/
-> > $ cp *-23-dataset* send_to_bob/all_datasets_created_on_a_23rd/
-> > ```
-> > {: .language-bash}
 > {: .solution}
 {: .challenge}
 
