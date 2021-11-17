@@ -17,3 +17,5 @@ vendor/
 Gemfile.lock
 .*history
 .github/workflows/template.yml
+README.md
+
