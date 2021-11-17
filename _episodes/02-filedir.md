@@ -113,20 +113,9 @@ because its name begins with `/`.
 > it's just a separator.
 {: .callout}
 
-Underneath `/Users`,
-we find one directory for each user with an account on Nelle's machine,
-her colleagues *imhotep* and *larry*.
-
-![Like other directories, home directories are sub-directories underneath
-"/Users" like "/Users/imhotep", "/Users/larry" or
-"/Users/nelle"](../fig/home-directories.svg)
-
-The user *imhotep*'s files are stored in `/Users/imhotep`,
-user *larry*'s in `/Users/larry`,
-and Nelle's in `/Users/nelle`.  Because Nelle is the user in our
-examples here, therefore we get `/Users/nelle` as our home directory.
 Typically, when you open a new command prompt, you will be in
-your home directory to start.
+your home directory to start. Because Nelle is the user in our
+examples here, therefore we get `/Users/nelle` as our home directory.
 
 Now let's learn the command that will let us see the contents of our
 own filesystem.  We can see what's in our home directory by running `ls`:
