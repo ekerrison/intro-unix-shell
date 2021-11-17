@@ -31,6 +31,7 @@ The `.pdb` extension indicates that these files are in Protein Data Bank format,
 a simple text format that specifies the type and position of each atom in the molecule.
 
 ~~~
+$ cd shell-lesson-data
 $ ls molecules
 ~~~
 {: .language-bash}
@@ -54,30 +55,6 @@ $ wc cubane.pdb
 ~~~
 {: .output}
 
-`wc` is the 'word count' command:
-it counts the number of lines, words, and characters in files (from left to right, in that order).
-
-If we run the command `wc *.pdb`, the `*` in `*.pdb` matches zero or more characters,
-so the shell turns `*.pdb` into a list of all `.pdb` files in the current directory:
-
-~~~
-$ wc *.pdb
-~~~
-{: .language-bash}
-
-~~~
-  20  156  1158  cubane.pdb
-  12  84   622   ethane.pdb
-   9  57   422   methane.pdb
-  30  246  1828  octane.pdb
-  21  165  1226  pentane.pdb
-  15  111  825   propane.pdb
- 107  819  6081  total
-~~~
-{: .output}
-
-Note that `wc *.pdb` also shows the total number of all lines in the last line of the output.
-
 If we run `wc -l` instead of just `wc`,
 the output shows only the number of lines per file:
 
@@ -100,7 +77,7 @@ $ wc -l *.pdb
 The `-m` and `-w` options can also be used with the `wc` command, to show
 only the number of characters or the number of words in the files.
 
-> ## Why Isn't It Doing Anything?
+> ## Why Is My Code Hanging?
 >
 > What happens if a command is supposed to process a file, but we
 > don't give it a filename? For example, what if we type:
@@ -116,6 +93,7 @@ only the number of characters or the number of words in the files.
 > it some data interactively. From the outside, though, all we see is it
 > sitting there: the command doesn't appear to do anything.
 >
+> Hint: Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to cancel the executable when the code hangs...
 > If you make this kind of mistake, you can escape out of this state by holding down
 > the control key (<kbd>Ctrl</kbd>) and typing the letter <kbd>C</kbd> once and 
 > letting go of the <kbd>Ctrl</kbd> key.
@@ -123,7 +101,7 @@ only the number of characters or the number of words in the files.
 {: .callout}
 
 
-## Capturing output from commands
+## Storing output from commands in files
 
 Which of these files contains the fewest lines?
 It's an easy question to answer when there are only six files,
@@ -282,7 +260,7 @@ and so on.
 Since `sorted-lengths.txt` contains the lengths of our files ordered from least to greatest,
 the output of `head` must be the file with the fewest lines.
 
-> ## Redirecting to the same file
+> ## Redirecting to the same file = Bad
 >
 > It's a very bad idea to try redirecting
 > the output of a command that operates on a file
@@ -298,7 +276,7 @@ the output of `head` must be the file with the fewest lines.
 > the contents of `lengths.txt`.
 {: .callout}
 
-> ## What Does `>>` Mean?
+> ## What Does `>>` Mean? (Hint: It means "append")
 >
 > We have seen the use of `>`, but there is a similar operator `>>` 
 > which works slightly differently.
@@ -371,7 +349,7 @@ the output of `head` must be the file with the fewest lines.
 {: .challenge}
 
 
-## Passing output to another command
+## Piping: Passing output to another command
 In our example of finding the file with the fewest lines,
 we are using two intermediate files `lengths.txt` and `sorted-lengths.txt` to store output.
 This is a confusing way to work because
@@ -405,7 +383,7 @@ This removes the need for any intermediate files.
 We'll start by using a pipe to send the output of `wc` to `sort`:
 
 ~~~
-$ wc -l *.pdb | sort -n
+$ wc -l *ane.pdb | sort -n
 ~~~
 {: .language-bash}
 
@@ -599,96 +577,6 @@ so that you and other people can put those programs into pipes to multiply their
 > > the pipelines (make sure you are in the `shell-lesson-data/data` directory).
 > {: .solution}
 {: .challenge}
-
-## Nelle's Pipeline: Checking Files
-
-Nelle has run her samples through the assay machines
-and created 17 files in the `north-pacific-gyre/2012-07-03` directory described earlier.
-As a quick check, starting from her home directory, Nelle types:
-
-~~~
-$ cd north-pacific-gyre/2012-07-03
-$ wc -l *.txt
-~~~
-{: .language-bash}
-
-The output is 18 lines that look like this:
-
-~~~
-300 NENE01729A.txt
-300 NENE01729B.txt
-300 NENE01736A.txt
-300 NENE01751A.txt
-300 NENE01751B.txt
-300 NENE01812A.txt
-... ...
-~~~
-{: .output}
-
-Now she types this:
-
-~~~
-$ wc -l *.txt | sort -n | head -n 5
-~~~
-{: .language-bash}
-
-~~~
- 240 NENE02018B.txt
- 300 NENE01729A.txt
- 300 NENE01729B.txt
- 300 NENE01736A.txt
- 300 NENE01751A.txt
-~~~
-{: .output}
-
-Whoops: one of the files is 60 lines shorter than the others.
-When she goes back and checks it,
-she sees that she did that assay at 8:00 on a Monday morning --- someone
-was probably in using the machine on the weekend,
-and she forgot to reset it.
-Before re-running that sample,
-she checks to see if any files have too much data:
-
-~~~
-$ wc -l *.txt | sort -n | tail -n 5
-~~~
-{: .language-bash}
-
-~~~
- 300 NENE02040B.txt
- 300 NENE02040Z.txt
- 300 NENE02043A.txt
- 300 NENE02043B.txt
-5040 total
-~~~
-{: .output}
-
-Those numbers look good --- but what's that 'Z' doing there in the third-to-last line?
-All of her samples should be marked 'A' or 'B';
-by convention,
-her lab uses 'Z' to indicate samples with missing information.
-To find others like it, she does this:
-
-~~~
-$ ls *Z.txt
-~~~
-{: .language-bash}
-
-~~~
-NENE01971Z.txt    NENE02040Z.txt
-~~~
-{: .output}
-
-Sure enough,
-when she checks the log on her laptop,
-there's no depth recorded for either of those samples.
-Since it's too late to get the information any other way,
-she must exclude those two files from her analysis.
-She could delete them using `rm`,
-but there are actually some analyses she might do later where depth doesn't matter,
-so instead, she'll have to be careful later on to select files using the wildcard expressions
-`NENE*A.txt NENE*B.txt`.
-
 
 > ## Removing Unneeded Files
 >
