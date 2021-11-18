@@ -117,52 +117,6 @@ Typically, when you open a new command prompt, you will be in
 your home directory to start. Because Nelle is the user in our
 examples here, therefore we get `/Users/nelle` as our home directory.
 
-Now let's learn the command that will let us see the contents of our
-own filesystem.  We can see what's in our home directory by running `ls`:
-
-~~~
-$ ls
-~~~
-{: .language-bash}
-
-~~~
-Applications Documents    Library      Music        Public
-Desktop      Downloads    Movies       Pictures
-~~~
-{: .output}
-
-(Again, your results may be slightly different depending on your operating
-system and how you have customized your filesystem.)
-
-`ls` prints the names of the files and directories in the current directory.
-We can make its output more comprehensible by using the `-F` **option**
-(also known as a **switch** or a **flag**),
-which tells `ls` to classify the output
-by adding a marker to file and directory names to indicate what they are:
-- a trailing `/` indicates that this is a directory
-- `@` indicates a link
-- `*` indicates an executable
-
-Depending on your default options,
-the shell might also use colors to indicate whether each entry is a file or
-directory.
-
-~~~
-$ ls -F
-~~~
-{: .language-bash}
-
-~~~
-Applications/ Documents/    Library/      Music/        Public/
-Desktop/      Downloads/    Movies/       Pictures/
-~~~
-{: .output}
-
-Here,
-we can see that our home directory contains only **sub-directories**.
-Any names in our output that don't have a classification symbol
-are plain old **files**.
-
 > ## Clearing your terminal
 >
 > If your screen gets too cluttered, you can clear your terminal using the
