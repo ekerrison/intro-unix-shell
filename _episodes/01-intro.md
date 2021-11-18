@@ -171,7 +171,7 @@ $ curl -O https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
 ~~~
 {: .language-bash}
 ~~~
-$ ls -ltr
+$ ls
 ~~~
 {: .language-bash}
 ~~~
