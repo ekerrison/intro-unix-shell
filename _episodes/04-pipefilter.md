@@ -1,6 +1,6 @@
 ---
 title: "Pipes and Filters"
-teaching: 25
+teaching: 20
 exercises: 10
 questions:
 - "How can I combine existing commands to do new things?"
@@ -42,23 +42,11 @@ octane.pdb    pentane.pdb   propane.pdb
 ~~~
 {: .output}
 
-Let's go into that directory with `cd` and run an example  command `wc cubane.pdb`:
-
-~~~
-$ cd molecules
-$ wc cubane.pdb
-~~~
-{: .language-bash}
-
-~~~
-20  156 1158 cubane.pdb
-~~~
-{: .output}
-
-If we run `wc -l` instead of just `wc`,
+Let's go into that directory with `cd` and run an example  command  `wc -l` instead of just `wc`,
 the output shows only the number of lines per file:
 
 ~~~
+$ cd molecules
 $ wc -l *.pdb
 ~~~
 {: .language-bash}
@@ -121,16 +109,6 @@ the file if it doesn't exist. If the file exists, it will be
 silently overwritten, which may lead to data loss and thus requires
 some caution.
 `ls lengths.txt` confirms that the file exists:
-
-~~~
-$ ls lengths.txt
-~~~
-{: .language-bash}
-
-~~~
-lengths.txt
-~~~
-{: .output}
 
 We can now send the content of `lengths.txt` to the screen using `cat lengths.txt`.
 The `cat` command gets its name from 'concatenate' i.e. join together,
@@ -348,7 +326,6 @@ the output of `head` must be the file with the fewest lines.
 > {: .solution}
 {: .challenge}
 
-
 ## Piping: Passing output to another command
 In our example of finding the file with the fewest lines,
 we are using two intermediate files `lengths.txt` and `sorted-lengths.txt` to store output.
@@ -383,7 +360,7 @@ This removes the need for any intermediate files.
 We'll start by using a pipe to send the output of `wc` to `sort`:
 
 ~~~
-$ wc -l *ane.pdb | sort -n
+$ wc -l *.pdb | sort -n
 ~~~
 {: .language-bash}
 
