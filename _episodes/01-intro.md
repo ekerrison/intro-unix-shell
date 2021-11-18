@@ -163,4 +163,35 @@ In order to achieve her task, Nelle needs to know how to:
 - iterate over files
 - run a shell script containing her pipeline
 
+## Getting started
+First we need to download and unzip the dataset we are going to work with in this session.
+
+~~~
+$ curl -O https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.zip
+~~~
+{: .language-bash}
+~~~
+$ ls -ltr
+~~~
+{: .language-bash}
+~~~
+shell-lesson-data.zip
+~~~
+{: .output}
+~~~
+$ unzip shell-lesson-data.zip
+~~~
+{: .language-bash}
+
+Note: you might be prompted to install the unzip command first, if you are using it for the first time.
+
+$ sudo apt install unzip
+~~~
+{: .language-bash}
+
+
+
+
+
+
 {% include links.md %}
