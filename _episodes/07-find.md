@@ -5,13 +5,16 @@ exercises: 20
 questions:
 - "How can I find files?"
 - "How can I find things in files?"
+- "Once I've found things, how can I replace/edit them?"
 objectives:
 - "Use `grep` to select lines from text files that match simple patterns."
 - "Use `find` to find files and directories whose names match simple patterns."
+- "Use `sed` to replace data in files when a pattern match occurs."
 - "Use the output of one command as the command-line argument(s) to another command."
 - "Explain what is meant by 'text' and 'binary' files, and why many common tools don't handle the latter well."
 keypoints:
 - "`find` finds files with specific properties that match patterns."
+- "`sed` gives the ability to perform text transformations such as replace specific patterns or lines."
 - "`grep` selects lines in files that match patterns."
 - "`--help` is an option supported by many bash commands, and programs that can be run from within Bash, to display more information on how to use these commands or programs."
 - "`man [command]` displays the manual page for a given command."
@@ -25,7 +28,7 @@ word 'grep'.
 a common sequence of operations in early Unix text editors.
 It is also the name of a very useful command-line program.
 
-`grep` finds and prints lines in files that match a pattern.
+`grep` finds and prints lines in files that match a pattern. It works like a filter search.
 For our examples,
 we will use a file that contains three haiku taken from a
 1998 competition in *Salon* magazine. For this set of examples,
@@ -228,13 +231,14 @@ haiku.txt:Yesterday it worked
 ```
 {: .output}
 
-`grep` has lots of other options. To find out what they are, we can type:
+`grep` has lots of other options. To find out what they are, we can try either `--help` or `man`:
 
 ~~~
 $ grep --help
+
+$ man grep
 ~~~
 {: .language-bash}
-
 ~~~
 Usage: grep [OPTION]... PATTERN [FILE]...
 Search for PATTERN in each FILE or standard input.
@@ -257,6 +261,8 @@ Miscellaneous:
 ...        ...        ...
 ~~~
 {: .output}
+
+A simplified version of man known as "Too Long Didn't Read" or TLDR is available from https://tldr.sh/. Please inspect this more in your own time if you have interest.
 
 > ## Using `grep`
 >
@@ -308,120 +314,52 @@ Miscellaneous:
 > matches an actual 'o'.
 {: .callout}
 
-> ## Tracking a Species
+> ## Introduction to the SED Command
 >
-> Leah has several hundred
-> data files saved in one directory, each of which is formatted like this:
->
-> ~~~
-> 2013-11-05,deer,5
-> 2013-11-05,rabbit,22
-> 2013-11-05,raccoon,7
-> 2013-11-06,rabbit,19
-> 2013-11-06,deer,2
-> ~~~
-> {: .source}
->
-> She wants to write a shell script that takes a species as the first command-line argument
-> and a directory as the second argument. The script should return one file called `species.txt`
-> containing a list of dates and the number of that species seen on each date.
-> For example using the data shown above, `rabbit.txt` would contain:
->
-> ~~~
-> 2013-11-05,22
-> 2013-11-06,19
-> ~~~
-> {: .source}
->
-> Put these commands and pipes in the right order to achieve this:
->
-> ~~~
-> cut -d : -f 2
-> >
-> |
-> grep -w $1 -r $2
-> |
-> $1.txt
-> cut -d , -f 1,3
-> ~~~
-> {: .language-bash}
->
-> Hint: use `man grep` to look for how to grep text recursively in a directory
-> and `man cut` to select more than one field in a line.
->
-> An example of such a file is provided in `shell-lesson-data/data/animal-counts/animals.txt`
->
-> > ## Solution
-> >
-> > ```
-> > grep -w $1 -r $2 | cut -d : -f 2 | cut -d , -f 1,3 > $1.txt
-> > ```
-> > {: .source}
-> >
-> > Actually, you can swap the order of the two cut commands and it still works. At the
-> > command line, try changing the order of the cut commands, and have a look at the output
-> > from each step to see why this is the case.
-> >
-> > You would call the script above like this:
-> >
-> > ```
-> > $ bash count-species.sh bear .
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
+> `sed` is a command in UNIX that is short for stream editor. `sed` is a powerful tool
+> for perfoming actions like subsituting (replacing), inserting, and removing data
+> in files. SED uses pattern matching and also supports regular expressions.
+{: .callout}
 
-> ## Little Women
->
-> You and your friend, having just finished reading *Little Women* by
-> Louisa May Alcott, are in an argument.  Of the four sisters in the
-> book, Jo, Meg, Beth, and Amy, your friend thinks that Jo was the
-> most mentioned.  You, however, are certain it was Amy.  Luckily, you
-> have a file `LittleWomen.txt` containing the full text of the novel
-> (`shell-lesson-data/writing/data/LittleWomen.txt`).
-> Using a `for` loop, how would you tabulate the number of times each
-> of the four sisters is mentioned?
->
-> Hint: one solution might employ
-> the commands `grep` and `wc` and a `|`, while another might utilize
-> `grep` options.
-> There is often more than one way to solve a programming task, so a
-> particular solution is usually chosen based on a combination of
-> yielding the correct result, elegance, readability, and speed.
->
-> > ## Solutions
-> > ```
-> > for sis in Jo Meg Beth Amy
-> > do
-> > 	echo $sis:
-> >	grep -ow $sis LittleWomen.txt | wc -l
-> > done
-> > ```
-> > {: .source}
-> >
-> > Alternative, slightly inferior solution:
-> > ```
-> > for sis in Jo Meg Beth Amy
-> > do
-> > 	echo $sis:
-> >	grep -ocw $sis LittleWomen.txt
-> > done
-> > ```
-> > {: .source}
-> >
-> > This solution is inferior because `grep -c` only reports the number of lines matched.
-> > The total number of matches reported by this method will be lower if there is more
-> > than one match per line.
-> >
-> > Perceptive observers may have noticed that character names sometimes appear in all-uppercase
-> > in chapter titles (e.g. 'MEG GOES TO VANITY FAIR').
-> > If you wanted to count these as well, you could add the `-i` option for case-insensitivity
-> > (though in this case, it doesn't affect the answer to which sister is mentioned
-> > most frequently).
-> {: .solution}
-{: .challenge}
+~~~
+$ man sed
+~~~
+{: .language-bash}
 
-While `grep` finds lines in files,
+Okay, let's try see what we can do with `sed`, first we will try substituting...:
+
+~~~
+$ cd ..
+$ sed 's/Horrible/Nicest Person Ever/' notes.txt
+~~~
+{: .language-bash}
+
+~~~
+- finish experiments
+- write thesis
+- get post-doc position (pref. with Dr. Nicest Person Ever)
+~~~
+{: .output}
+
+Let's try something else, how about deleting the third line (bottom line in the example) from notes.txt:
+
+~~~
+$ sed "3d" notes.txt
+~~~
+{: .language-bash}
+
+~~~
+- finish experiments
+- write thesis
+~~~
+{: .output}
+
+Where could you imagine this being useful in a data set?
+
+> ## Finding files and combining with grep
+{: .callout}
+
+While `grep` finds lines in files and `sed` can replace lines,
 the `find` command finds files themselves.
 Again,
 it has a lot of options;
@@ -680,22 +618,6 @@ first, but once learned, the productivity in the shell is unbeatable.
 And as Alfred North Whitehead wrote in 1911, 'Civilization advances by
 extending the number of important operations which we can perform
 without thinking about them.'
-
-> ## `find` Pipeline Reading Comprehension
->
-> Write a short explanatory comment for the following shell script:
->
-> ~~~
-> wc -l $(find . -name "*.dat") | sort -n
-> ~~~
-> {: .language-bash}
->
-> > ## Solution
-> > 1. Find all files with a `.dat` extension recursively from the current directory
-> > 2. Count the number of lines each of these files contains
-> > 3. Sort the output from step 2. numerically
-> {: .solution}
-{: .challenge}
 
 
 {% include links.md %}
