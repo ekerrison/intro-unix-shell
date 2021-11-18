@@ -183,8 +183,10 @@ $ unzip shell-lesson-data.zip
 ~~~
 {: .language-bash}
 
+
 Note: you might be prompted to install the unzip command first, if you are using it for the first time.
 
+~~~
 $ sudo apt install unzip
 ~~~
 {: .language-bash}
