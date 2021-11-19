@@ -262,8 +262,6 @@ Miscellaneous:
 ~~~
 {: .output}
 
-A simplified version of man known as "Too Long Didn't Read" or TLDR is available from https://tldr.sh/. Please inspect this more in your own time if you have interest.
-
 > ## Using `grep`
 >
 > Which command would result in the following output:
@@ -619,5 +617,8 @@ And as Alfred North Whitehead wrote in 1911, 'Civilization advances by
 extending the number of important operations which we can perform
 without thinking about them.'
 
+## Too Long Didn't Read (TLDR)
+
+A simplified version of `man` is known as "Too Long Didn't Read" or TLDR, which is available at https://tldr.sh/. Please inspect this more in your own time if you have interest in a simpler and generally more practical version of `man`.
 
 {% include links.md %}
