@@ -36,7 +36,7 @@ we're going to be working in the writing subdirectory:
 
 ~~~
 $ cd
-$ cd Desktop/shell-lesson-data/writing
+$ cd ~/shell-lesson-data/writing
 $ cat haiku.txt
 ~~~
 {: .language-bash}

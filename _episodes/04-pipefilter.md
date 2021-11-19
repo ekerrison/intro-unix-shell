@@ -31,7 +31,7 @@ The `.pdb` extension indicates that these files are in Protein Data Bank format,
 a simple text format that specifies the type and position of each atom in the molecule.
 
 ~~~
-$ cd shell-lesson-data
+$ cd ~/shell-lesson-data
 $ ls molecules
 ~~~
 {: .language-bash}
