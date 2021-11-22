@@ -35,7 +35,6 @@ we will use a file that contains three haiku taken from a
 we're going to be working in the writing subdirectory:
 
 ~~~
-$ cd
 $ cd ~/shell-lesson-data/writing
 $ cat haiku.txt
 ~~~
