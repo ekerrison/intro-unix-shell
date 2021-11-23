@@ -338,7 +338,8 @@ $ sed 's/Horrible/Nicest Person Ever/' notes.txt
 ~~~
 {: .output}
 
-Let's try something else, how about deleting the third line (bottom line in the example) from notes.txt:
+Let's try something else, how about deleting the third line 
+(bottom line in the example) from notes.txt:
 
 ~~~
 $ sed "3d" notes.txt
@@ -618,6 +619,9 @@ without thinking about them.'
 
 ## Too Long Didn't Read (TLDR)
 
-A simplified version of `man` is known as "Too Long Didn't Read" or TLDR, which is available at https://tldr.sh/. Please inspect this more in your own time if you have interest in a simpler and generally more practical version of `man`.
+A simplified version of `man` is known as "Too Long Didn't Read" or TLDR,
+which is available at https://tldr.sh/. Please inspect this
+more in your own time if you have interest in a simpler and generally
+more practical version of `man`.
 
 {% include links.md %}
