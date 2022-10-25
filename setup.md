@@ -78,16 +78,17 @@ Your default shell is available via the Terminal program within your Utilities f
 To open Terminal, try one or both of the following:
 * In Finder, select the Go menu, then select Utilities.
   Locate Terminal in the Utilities folder and open it.
-* Use the Mac 'Spotlight' computer search function.
+* Use the Mac 'Spotlight' computer search function (<kbd>⌘</kbd> + <kbd>space</kbd>).
   Search for: `Terminal` and press <kbd>Return</kbd>.
 
 To check if your machine is set up to use something other than Bash,
 type `echo $SHELL` in your terminal window.
 
 If your machine is set up to use something other than Bash,
-you can run it by opening a terminal and typing `bash`.
+  you can run it by opening a terminal and typing `bash`. 
+  (<b>Note</b> this will only change your shell for the current window/session.) 
 
-[How to Use Terminal on a Mac][mac-terminal]
+For more info take a look at [How to Use Terminal on a Mac][mac-terminal]
 </article>
 
 <article role="tabpanel" class="tab-pane" id="linux">
